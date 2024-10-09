@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "344112592463",
+    "project_id": "productq1",
+    "storage_bucket": "productq1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344112592463:android:8abbc3514141ffdcd85c3a",
+        "android_client_info": {
+          "package_name": "com.wemofy.productiq.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsKtuxDyoOW4twS33Bg0k-BX4A9dV0aro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344112592463:android:833e97e792f74867d85c3a",
+        "android_client_info": {
+          "package_name": "com.wemofy.productq.android"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsKtuxDyoOW4twS33Bg0k-BX4A9dV0aro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
