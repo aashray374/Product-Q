@@ -1,16 +1,18 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:product_iq/consts.dart';
 import 'package:product_iq/models/subscription.dart';
-import 'package:product_iq/routes/app_route_consts.dart';
 import 'package:product_iq/widgets/common_widgets/my_elevated_button.dart';
 import 'package:product_iq/widgets/home_widgets/main_app_screen.dart';
 import 'package:product_iq/widgets/sales_widgets/subscription_card.dart';
 import 'package:product_iq/widgets/sales_widgets/toggle_chip.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../services/payment_service.dart';
 
 class SubscriptionScreen extends StatefulWidget {
   const SubscriptionScreen({super.key, this.index});
@@ -33,6 +35,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   int selectedIndex = 0;
   String selectedPack = "Monthly";
   final List<Subscription> plans = [];
+  final PaymentServices _paymentServices = PaymentServices();
 
   double getSelectedPrice(List<int> ids) {
     double totalPrice = 0.0;
@@ -50,31 +53,37 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
     return totalPrice;
   }
 
-  Future<String> getUrl(bool isMonth) async {
+  Future<List<dynamic>> getId(bool isMonth) async {
     final paymentUrl =
-    Uri.parse('${MyConsts.baseUrl}/subscription/payment-intent');
-    http.Response response = await http.post(
-      paymentUrl,
-      headers: MyConsts.requestHeader,
-      body: jsonEncode({
-        "address": {
-          "line1": "123 Main St",
-          "city": "Bangalore",
-          "state": "Karnataka",
-          "postal_code": "12345",
-          "country": "US"
-        },
-        'duration': isMonth ? 'Monthly' : 'Four-Months',
-        'plan': selectedSubscription
-      }),
-    );
-    final res = jsonDecode(response.body);
-    print(response.body);
-    if (response.statusCode == 200) {
-      debugPrint(res.toString());
-      return res['url'];
-    } else {
-      return 'https://www.google.com';
+    Uri.parse('${MyConsts.baseUrl}/subscription/payment-intent_razorpay');
+    try {
+      http.Response response = await http.post(
+        paymentUrl,
+        headers: MyConsts.requestHeader,
+        body: jsonEncode({
+          "address": {
+            "line1": "123 Main St",
+            "city": "Bangalore",
+            "state": "Karnataka",
+            "postal_code": "12345",
+            "country": "US"
+          },
+          'duration': isMonth ? 'Monthly' : 'Four-Months',
+          'plan': selectedSubscription
+        }),
+      );
+      final res = jsonDecode(response.body);
+      print(response.body);
+      if (response.statusCode == 200) {
+        debugPrint(res.toString());
+        return [res['id'], res['key'],res['amount']];
+      } else {
+        // Return an empty list in case of error
+        return [];
+      }
+    } catch (e) {
+      print("Error fetching payment ID: $e");
+      return [];
     }
   }
 
@@ -82,6 +91,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   void initState() {
     couponController = TextEditingController();
     _loadPlans();
+    _paymentServices.intiateRazorPay(context);
     super.initState();
   }
 
@@ -91,22 +101,28 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       MyConsts.token = preferences.getString("token")!;
     }
-    http.Response response =
-    await http.get(subscriptionUrl, headers: MyConsts.requestHeader);
-    var res = jsonDecode(response.body);
-    print("response of subscription ${response.body}");
-    if (response.statusCode == 200) {
-      debugPrint(res.toString());
-      setState(() {
-        for (var plan in res) {
-          var subscriptionPlan = Subscription.fromJson(plan);
-          plans.add(subscriptionPlan);
-        }
-      });
-    } else {
-      debugPrint(response.body);
+    try {
+      http.Response response =
+      await http.get(subscriptionUrl, headers: MyConsts.requestHeader);
+      var res = jsonDecode(response.body);
+      print("response of subscription ${response.body}");
+      if (response.statusCode == 200) {
+        debugPrint(res.toString());
+        setState(() {
+          for (var plan in res) {
+            var subscriptionPlan = Subscription.fromJson(plan);
+            plans.add(subscriptionPlan);
+          }
+        });
+      } else {
+        debugPrint(response.body);
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("No internet connection")));
+      }
+    } catch (e) {
+      print("Error loading plans: $e");
       ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("No internet connection")));
+          SnackBar(content: Text("Error loading plans")));
     }
   }
 
@@ -173,8 +189,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       setState(() {
                         selectedIndex = index!;
                         factor = index == 0 ? 1 : 12;
-                        selectedPack =
-                        index == 0 ? "Monthly" : "Four-Months";
+                        selectedPack = index == 0 ? "Monthly" : "Four-Months";
                       });
                     },
                     selectedIndex: selectedIndex,
@@ -185,8 +200,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         ? [const CircularProgressIndicator()]
                         : plans
                         .map((plan) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6),
+                      padding:
+                      const EdgeInsets.symmetric(vertical: 6),
                       child: GestureDetector(
                         onTap: () => _handlePlanSelection(plan),
                         child: SubscriptionCard(
@@ -202,8 +217,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                               ? plan.priceMonthly
                               : plan.priceAnnual,
                           isRecommended: plan.recommended,
-                          bgColor:
-                          selectedSubscription.contains(plan.id)
+                          bgColor: selectedSubscription
+                              .contains(plan.id)
                               ? MyConsts.primaryColorTo
                               .withOpacity(0.1)
                               : Colors.white.withOpacity(0.1),
@@ -261,7 +276,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "INR ${getSelectedPrice(selectedSubscription).toStringAsFixed(2)} / ${selectedPack == "Four-Months" ? "Yearly" : "Quaterly"}",
+                "INR ${getSelectedPrice(selectedSubscription).toStringAsFixed(2)} / ${selectedPack == "Four-Months" ? "Yearly" : "Quarterly"}",
                 style: Theme.of(context)
                     .textTheme
                     .titleSmall!
@@ -277,11 +292,21 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   style: Theme.of(context).textTheme.titleSmall,
                 ),
                 onTap: () async {
-                  final url = await getUrl(selectedPack == "Monthly");
-                  GoRouter.of(context).pushNamed(
-                    MyAppRouteConst.paymentRoute,
-                    extra: url,
-                  );
+                  final orderDetails = await getId(selectedPack == "Monthly");
+                  if (orderDetails.toString().isNotEmpty && orderDetails.length == 3) {
+                    String receiptId = orderDetails[0];
+                    String razorpayKey = orderDetails[1];
+                    double amount = orderDetails[2].toDouble();
+                    _paymentServices.openSession(
+                      amount: amount,
+                      receiptId: receiptId,
+                      key: razorpayKey,
+                      context: context
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text("Failed to initiate payment session")));
+                  }
                 },
               ),
             ],
