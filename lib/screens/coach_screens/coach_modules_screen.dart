@@ -71,40 +71,42 @@ class _CoachModulesScreenState extends ConsumerState<CoachModulesScreen> {
 */
   void getModules() async {
     try {
-      if (MyConsts.token == '') {
+      // Ensure token retrieval is handled correctly
+      if (MyConsts.token.isEmpty) {
         SharedPreferences preferences = await SharedPreferences.getInstance();
-        setState(() {
-          MyConsts.token = preferences.getString("token")!;
-        });
-      }
-      final modulesUrl = Uri.parse('${MyConsts.baseUrl}/app/${widget.appId.toString()}/module');
-      print(" getmodule----- ${MyConsts.baseUrl}/app/${widget.appId.toString()}/module");
-
-      http.Response response = await http.get(modulesUrl, headers: MyConsts.requestHeader);
-      var res = jsonDecode(response.body);
-      print("getmodule----- ${response.body}");
-      if (response.statusCode == 200) {
-        res = jsonDecode(response.body);
-        debugPrint(res.toString());
-        for (var module in res) {
-          var coachModule = CoachModule.fromJson(module);
-          modules.add(coachModule);
+        String? token = preferences.getString("token");
+        if (token != null) {
+          setState(() {
+            MyConsts.token = token;
+          });
+        } else {
+          throw Exception("Token not found in SharedPreferences.");
         }
-        // Sort all modules according to its order attribute
+      }
+
+      // API call to fetch modules
+      final modulesUrl = Uri.parse('${MyConsts.baseUrl}/app/${widget.appId.toString()}/module');
+      http.Response response = await http.get(modulesUrl, headers: MyConsts.requestHeader);
+
+      if (response.statusCode == 200) {
+        List<dynamic> res = jsonDecode(response.body);
+        for (var module in res) {
+          modules.add(CoachModule.fromJson(module));
+        }
         modules.sort((a, b) => a.order.compareTo(b.order));
+
         setState(() {
           filteredModules.addAll(modules);
           isLoading = false;
         });
       } else {
-        debugPrint(response.body);
         throw Exception('Failed to load modules');
       }
     } catch (e) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CrashErrorScreen(retry : getModules),
+          builder: (context) => CrashErrorScreen(retry: getModules),
         ),
       );
     }
@@ -113,7 +115,7 @@ class _CoachModulesScreenState extends ConsumerState<CoachModulesScreen> {
   @override
   Widget build(BuildContext context) {
     return CoachMainScreen(
-        appBarTitle: MyConsts.productNameMap[widget.appId]!,
+        appBarTitle: MyConsts.productNameMap[widget.appId]==null? "Product Interview Coach": MyConsts.productNameMap[widget.appId]!,
         body: SingleChildScrollView(
           child: SafeArea(
             minimum: const EdgeInsets.fromLTRB(20, 20, 20, 0),
