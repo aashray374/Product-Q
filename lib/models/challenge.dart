@@ -18,7 +18,7 @@ class Challenge {
   final String title;
   final String subtitle;
   final bool isCompleted;
-  final int ? rating;
+  final double? rating;
   final String  companyLogo;
   final String  sampleAnswer;
   final List<dynamic>  topics;

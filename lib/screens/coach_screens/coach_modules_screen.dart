@@ -278,8 +278,7 @@ class _CoachModulesScreenState extends ConsumerState<CoachModulesScreen> {
                                         MyAppRouteConst.coachModulesInfoRoute,
                                         extra: module.totalPercent == 0
                                             ? 0.0
-                                            : module.completedPercent /
-                                                module.totalPercent,
+                                            : (module.completedPercent.toDouble() / module.totalPercent.toDouble()),
                                         pathParameters: {
                                           'appId': widget.appId.toString(),
                                           'moduleTitle': module.moduleName,

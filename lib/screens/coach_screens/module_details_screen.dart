@@ -84,7 +84,7 @@ class _ModuleDetailsScreenState extends State<ModuleDetailsScreen> {
   Widget build(BuildContext context) {
     // print("hemant-- ${challenges[1].labels[3].companyLogo!}");
     return CoachMainScreen(
-      appBarTitle: MyConsts.productNameMap[widget.appId]!,
+      appBarTitle: MyConsts.productNameMap[widget.appId]?? "Product Interview Coach",
       body: SingleChildScrollView(
         child: SafeArea(
           minimum: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),

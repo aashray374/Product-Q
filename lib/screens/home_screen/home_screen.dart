@@ -459,90 +459,100 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           },
         ),*/
 
-        FutureBuilder(
-                future: _recentlyVisitedFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (_recentlyVisited.isEmpty) {
-                    return Column(
-                      children: [
-                        Center(
-                            child: SvgPicture.asset(
-                          'assets/elements/empty-plant.svg',
-                          height: 240,
-                        )),
-                        Text(
-                          "Start exploring to see\nyour recently visited items.",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                                  color: MyConsts.primaryDark.withOpacity(0.5)),
-                        ),
-                        const SizedBox(
-                          height: 32,
-                        )
-                      ],
-                    );
-                  }
+            FutureBuilder(
+              future: _recentlyVisitedFuture,
+              builder: (context, snapshot) {
+                // Show loading indicator while waiting for the future to complete
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                // Check if data is empty or null, and handle that case
+                if (_recentlyVisited == null || _recentlyVisited.isEmpty) {
                   return Column(
                     children: [
-                      for (var item in _recentlyVisited)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 20.0, top: 12),
-                          child: GestureDetector(
-                            onTap: () {
-                              debugPrint(item.coachPercent.toString());
-                              if (item.appType == MyConsts.appTypes[0]) {
-                                GoRouter.of(context).pushNamed(
-                                    item.appRoute,
-                                    extra: item.coachPercent ?? 0.0,
-                                    pathParameters: {
-                                      'completedPercent':item.completedPercent.toString(),
-                                      'totalPercent':item.totalPercent.toString(),
-                                      'moduleTitle': item.title,
-                                      'id': item.typeId.toString(),
-                                      'appId': item.appId.toString()
-                                    });
-                              } else if (item.appType ==
-                                  MyConsts.appTypes[1]) {
-                                GoRouter.of(context).pushNamed(item.appRoute,
-                                    pathParameters: {
-                                      'cardTitle': item.title,
-                                      'id': item.typeId.toString(),
-                                      'appId': item.appId.toString()
-                                    });
-                              } else {
-                                GoRouter.of(context).pushNamed(item.appRoute,
-                                    pathParameters: {
-                                      'title': item.title,
-                                      'id': item.typeId.toString(),
-                                      'appId': item.appId.toString()
-                                    });
-                              }
-                            },
-                            child: MyListTile(
-                              title: item.title,
-                              subtitle: MyConsts.productNameMap[item.appId]!,
-                              iconColor: item.appType == MyConsts.appTypes[0]
-                                  ? MyConsts.productColors[0][1]
-                                  : item.appType == MyConsts.appTypes[1]
-                                      ? MyConsts.productColors[1][1]
-                                      : MyConsts.productColors[2][1],
-                            ),
-                          ),
+                      Center(
+                        child: SvgPicture.asset(
+                          'assets/elements/empty-plant.svg',
+                          height: 240,
                         ),
-                      const SizedBox(
-                        height: 24,
                       ),
+                      Text(
+                        "Start exploring to see\nyour recently visited items.",
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: MyConsts.primaryDark.withOpacity(0.5)),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      )
                     ],
                   );
-                }),
+                }
+
+                // Display the list of recently visited items if available
+                return Column(
+                  children: [
+                    for (var item in _recentlyVisited!)
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20.0, top: 12),
+                        child: GestureDetector(
+                          onTap: () {
+                            debugPrint(item.coachPercent.toString());
+                            if (item.appType == MyConsts.appTypes[0]) {
+                              GoRouter.of(context).pushNamed(
+                                item.appRoute,
+                                extra: item.coachPercent ?? 0.0,
+                                pathParameters: {
+                                  'completedPercent': item.completedPercent.toString(),
+                                  'totalPercent': item.totalPercent.toString(),
+                                  'moduleTitle': item.title,
+                                  'id': item.typeId.toString(),
+                                  'appId': item.appId.toString()
+                                },
+                              );
+                            } else if (item.appType == MyConsts.appTypes[1]) {
+                              GoRouter.of(context).pushNamed(
+                                item.appRoute,
+                                pathParameters: {
+                                  'cardTitle': item.title,
+                                  'id': item.typeId.toString(),
+                                  'appId': item.appId.toString()
+                                },
+                              );
+                            } else {
+                              GoRouter.of(context).pushNamed(
+                                item.appRoute,
+                                pathParameters: {
+                                  'title': item.title,
+                                  'id': item.typeId.toString(),
+                                  'appId': item.appId.toString()
+                                },
+                              );
+                            }
+                          },
+                          child: MyListTile(
+                            title: item.title,
+                            subtitle: MyConsts.productNameMap[item.appId] ?? '',
+                            iconColor: item.appType == MyConsts.appTypes[0]
+                                ? MyConsts.productColors[0][1]
+                                : item.appType == MyConsts.appTypes[1]
+                                ? MyConsts.productColors[1][1]
+                                : MyConsts.productColors[2][1],
+                          ),
+                        ),
+                      ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                  ],
+                );
+              },
+            )
           ],
         ),
       ),

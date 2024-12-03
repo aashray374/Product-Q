@@ -203,7 +203,7 @@ class _InputAnswerBoxState extends ConsumerState<InputAnswerBox> {
     }
   }
 
- void _postAnswer(String? answer) async {
+  void _postAnswer(String? answer) async {
     if (answer == null || answer.length <= 1) {
       _showSnackBarMessage('Please answer the question');
       setState(() {
@@ -220,6 +220,7 @@ class _InputAnswerBoxState extends ConsumerState<InputAnswerBox> {
     final postAnswerUrl = Uri.parse(
         '${MyConsts.baseUrl}/app/${widget.appId}/response/lebel/${widget.labelId}');
     debugPrint(widget.labelId);
+    print("$postAnswerUrl");
 
     http.Response response = await http.post(postAnswerUrl,
         headers: MyConsts.requestHeader, body: json.encode({'answer': answer}));
@@ -259,7 +260,7 @@ class _InputAnswerBoxState extends ConsumerState<InputAnswerBox> {
         //   const SnackBar(content: Text('Draft removed successfully.')),
         // );
       }
-        // removeSaveDraftAnswer();
+      // removeSaveDraftAnswer();
     } else if (response.statusCode == 400) {
       print("message -----${res['message']}");
       _showSnackBarMessage(res['message']);
@@ -290,7 +291,6 @@ class _InputAnswerBoxState extends ConsumerState<InputAnswerBox> {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(message)));
   }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -69,7 +69,7 @@ class PaymentFailureScreen extends StatelessWidget {
                       .copyWith(fontSize: 16),
                 ),
                 onTap: () {
-                  GoRouter.of(context).pushReplacementNamed(MyAppRouteConst.paymentFailureRoute);
+                  GoRouter.of(context).pushReplacementNamed(MyAppRouteConst.paymentRoute);
                   // Navigator.of(context).pop();
                   // Navigator.of(context).pop()
                 }),
