@@ -376,7 +376,8 @@ class _AppsScreenState extends State<AppsScreen> {
                                           MyAppRouteConst.coachRoute,
                                           pathParameters: {
                                             'appId':
-                                                unPurchasedApps[i][1].toString()
+                                                unPurchasedApps[i][1].toString(),
+                                            'appBarTitle': unPurchasedApps[i][0].toString()
                                           });
                                     } else if (unPurchasedApps[i][2] ==
                                         MyConsts.appTypes[1]) {

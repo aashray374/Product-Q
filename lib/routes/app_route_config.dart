@@ -191,6 +191,7 @@ class MyAppRouter {
                         name: MyAppRouteConst.coachRoute,
                         builder: (context, state) => CoachHomeScreen(
                               appId: int.parse(state.pathParameters['appId']!),
+                              appBarTitle: state.pathParameters['appBarTitle']!,
                             ),
                         routes: [
                           GoRoute(

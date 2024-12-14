@@ -70,7 +70,7 @@ class _CardDetailsScreenState extends State<CardDetailsScreen> {
   Widget build(BuildContext context) {
     final deviceHeight = MediaQuery.of(context).size.height;
     return WorktoolsMainScreen(
-        title: MyConsts.productNameMap[widget.appId]!,
+        title: widget.cardTitle,
         body: SingleChildScrollView(
           child: SafeArea(
             minimum: const EdgeInsets.all(20),
