@@ -31,7 +31,13 @@ class PaymentServices {
 
   void _handlePaymentError(
       PaymentFailureResponse response, BuildContext context) {
-    GoRouter.of(context).pushNamed(MyAppRouteConst.paymentFailureRoute);
+    try {
+      GoRouter.of(context).pushNamed(MyAppRouteConst.paymentFailureRoute);
+    } catch (e) {
+      print("Routing error: $e");
+      GoRouter.of(context).pushNamed(MyAppRouteConst.appsRoute);
+    }
+
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
