@@ -159,6 +159,24 @@ class _AppsScreenState extends State<AppsScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    _checkPayment();
+    super.didChangeDependencies();
+  }
+
+  void _checkPayment() async{
+    if(MyConsts.isPurchased == true){
+      getApps();
+      setState(() {
+        debugPrint("Cards Refetched");
+      });
+      MyConsts.isPurchased = false;
+    }else{
+      //Do nothing
+    }
+  }
+
+  @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
