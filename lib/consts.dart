@@ -199,6 +199,7 @@ static const iqIndustryColor = Color(0xFF082AA8);
   static bool isIqSubscribed = false;
 
   static bool isPurchased = false;
+  static bool purchaseSuccess = false;
 
   static const allTrue = [true, true, true, true, true, true, true, true];
 

@@ -165,12 +165,12 @@ class _AppsScreenState extends State<AppsScreen> {
   }
 
   void _checkPayment() async{
-    if(MyConsts.isPurchased == true){
+    if(MyConsts.purchaseSuccess == true){
       getApps();
       setState(() {
         debugPrint("Cards Refetched");
       });
-      MyConsts.isPurchased = false;
+      MyConsts.purchaseSuccess = false;
     }else{
       //Do nothing
     }

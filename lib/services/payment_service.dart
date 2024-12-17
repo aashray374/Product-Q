@@ -26,6 +26,7 @@ class PaymentServices {
   void _handlePaymentSuccess(
       PaymentSuccessResponse response, BuildContext context) {
     MyConsts.isPurchased = true;
+    MyConsts.purchaseSuccess = true;
     GoRouter.of(context).pushNamed(MyAppRouteConst.paymentSuccessRoute);
   }
 
@@ -37,7 +38,6 @@ class PaymentServices {
       print("Routing error: $e");
       GoRouter.of(context).pushNamed(MyAppRouteConst.appsRoute);
     }
-
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
