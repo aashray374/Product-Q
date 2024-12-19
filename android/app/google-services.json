@@ -1,0 +1,130 @@
+{
+  "project_info": {
+    "project_number": "344112592463",
+    "project_id": "productq1",
+    "storage_bucket": "productq1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344112592463:android:8abbc3514141ffdcd85c3a",
+        "android_client_info": {
+          "package_name": "com.wemofy.productiq.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344112592463-1kv64ujjab1q8bbg34irec1ss3df1k9h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wemofy.productiq.android",
+            "certificate_hash": "51793eb1e44f1ed52fe3beff477b54c5ee8d3644"
+          }
+        },
+        {
+          "client_id": "344112592463-78ueuhgo3tc7ppq0diupb75u50mtepnl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wemofy.productiq.android",
+            "certificate_hash": "c4f9aff9051f6946c5100f267191046a80803ddb"
+          }
+        },
+        {
+          "client_id": "344112592463-heh26km7ne44ivlmhnvhrqjs453j3dhj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wemofy.productiq.android",
+            "certificate_hash": "b67d55056289476c03f54b722fa01703173cea5f"
+          }
+        },
+        {
+          "client_id": "344112592463-ugh8s8rmnve7297mm6mdhklbvd8fprel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wemofy.productiq.android",
+            "certificate_hash": "fcf6367d5b972e7a89d929bb8eefcb8178b2c924"
+          }
+        },
+        {
+          "client_id": "344112592463-m4sfc45ageic3bbmm69khs15aanjc0ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsKtuxDyoOW4twS33Bg0k-BX4A9dV0aro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344112592463-m4sfc45ageic3bbmm69khs15aanjc0ua.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "344112592463-hofo0v870suk7tdib8v9utl8rbaljha7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wemofy.productiq.ios"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344112592463:android:833e97e792f74867d85c3a",
+        "android_client_info": {
+          "package_name": "com.wemofy.productq.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344112592463-0rpe5mrjta0qticb85lap8tfqv3pue0v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wemofy.productq.android",
+            "certificate_hash": "51793eb1e44f1ed52fe3beff477b54c5ee8d3644"
+          }
+        },
+        {
+          "client_id": "344112592463-qt9gfitctr80qkn4p6iksec7i9p7js30.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wemofy.productq.android",
+            "certificate_hash": "b67d55056289476c03f54b722fa01703173cea5f"
+          }
+        },
+        {
+          "client_id": "344112592463-m4sfc45ageic3bbmm69khs15aanjc0ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsKtuxDyoOW4twS33Bg0k-BX4A9dV0aro"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344112592463-m4sfc45ageic3bbmm69khs15aanjc0ua.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "344112592463-hofo0v870suk7tdib8v9utl8rbaljha7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.wemofy.productiq.ios"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
