@@ -344,7 +344,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                       _paymentServices.openSession(
                         amount: amount,
                         receiptId: receiptId,
-                        key: 'rzp_test_DBspUWZydtpArp', //razorpayKey,
+                        key: '', //razorpayKey,
                         context: context,
                         notes: notes,
                       );
