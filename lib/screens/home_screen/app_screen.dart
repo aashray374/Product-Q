@@ -100,6 +100,7 @@ class _AppsScreenState extends State<AppsScreen> {
               });
               _updateSubscriptionStatus(app);
             } else {
+              if(app["id"]>3) MyConsts.productNameMap[app["id"]] = app["app_name"];
               unPurchasedApps.add({
                 "app_name": app["app_name"],
                 "id": app["id"],
@@ -367,7 +368,8 @@ class _AppsScreenState extends State<AppsScreen> {
 
   void _navigateToAppOnboardingPage(Map<String, dynamic> app) {
     if (app["app_type"] == MyConsts.appTypes[0]) {
-      GoRouter.of(context).pushNamed(MyAppRouteConst.coachRoute, pathParameters: {'appId': app["id"].toString(), 'appBarTitle': app["app_name"]});
+      print(app["id"]);
+      GoRouter.of(context).pushNamed(MyAppRouteConst.coachRoute, pathParameters: {'appId': app["id"].toString()});
     } else if (app["app_type"] == MyConsts.appTypes[1]) {
       GoRouter.of(context).pushNamed(MyAppRouteConst.worktoolsOnboardingRoute, pathParameters: {'appId': app["id"].toString()});
     } else if (app["app_type"] == MyConsts.appTypes[2]) {

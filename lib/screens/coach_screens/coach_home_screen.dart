@@ -8,9 +8,9 @@ import 'package:product_iq/widgets/coach_widgets/tick_point.dart';
 import 'package:product_iq/widgets/common_widgets/my_elevated_button.dart';
 
 class CoachHomeScreen extends StatelessWidget {
-  const CoachHomeScreen({super.key, required this.appId, required this.appBarTitle});
+  const CoachHomeScreen({super.key, required this.appId });
   final int appId;
-  final String appBarTitle;
+  // final String appBarTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class CoachHomeScreen extends StatelessWidget {
         .size
         .height;
     return CoachMainScreen(
-      appBarTitle: appBarTitle,
+      appBarTitle: MyConsts.productNameMap[appId]??"",
       body: SafeArea(
         minimum: const EdgeInsets.symmetric(horizontal: 40),
         child: Column(

@@ -107,14 +107,15 @@ class _SearchScreenState extends State<SearchScreen> {
                           'id': module.id.toString(),
                           'appId': module.appId.toString()
                         }.toString());
-                        GoRouter.of(context)
-                            .pushNamed(MyAppRouteConst.coachModulesInfoRoute,
-                                pathParameters: {
-                                  'moduleTitle': module.moduleName,
-                                  'id': module.id.toString(),
-                                  'appId': module.appId.toString()
-                                },
-                                extra: 0.0);
+                        // GoRouter.of(context)
+                        //     .pushNamed(MyAppRouteConst.coachModulesInfoRoute,
+                        //         pathParameters: {
+                        //           'moduleTitle': module.moduleName,
+                        //           'id': module.id.toString(),
+                        //           'appId': module.appId.toString()
+                        //         },
+                        //         extra: 0.0);
+                        GoRouter.of(context).pushReplacementNamed(MyAppRouteConst.coachModulesRoute);
                       });
                     }
                     for (Challenge challenge in result.challenges ?? []) {
@@ -122,14 +123,14 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add(challenge.moduleName);
                       type.add(MyConsts.chipsText[1]);
                       funcs.add(() {
-                        GoRouter.of(context)
-                            .pushNamed(MyAppRouteConst.coachModulesInfoRoute,
-                                pathParameters: {
-                                  'moduleTitle': challenge.moduleName,
-                                  'id': challenge.module.toString(),
-                                  'appId': challenge.appId.toString()
-                                },
-                                extra: 0.0);
+                        // GoRouter.of(context)
+                        //     .pushNamed(MyAppRouteConst.coachModulesInfoRoute,
+                        //         pathParameters: {
+                        //           'moduleTitle': challenge.moduleName,
+                        //           'id': challenge.module.toString(),
+                        //           'appId': challenge.appId.toString()
+                        //         },
+                        //         extra: 0.0);
                       });
                     }
 
@@ -138,15 +139,15 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add(label.levelQuestion);
                       type.add(MyConsts.chipsText[2]);
                       funcs.add(() {
-                        GoRouter.of(context).pushNamed(
-                            MyAppRouteConst.coachProblemRoute,
-                            pathParameters: {
-                              'problemTitle': label.labelName,
-                              'problemId': label.id.toString(),
-                              'appId': label.appId.toString()
-                            },
-                            extra:
-                                '${label.challengeName}.\n ${label.levelQuestion}');
+                        // GoRouter.of(context).pushNamed(
+                        //     MyAppRouteConst.coachProblemRoute,
+                        //     pathParameters: {
+                        //       'problemTitle': label.labelName,
+                        //       'problemId': label.id.toString(),
+                        //       'appId': label.appId.toString()
+                        //     },
+                        //     extra:
+                        //         '${label.challengeName}.\n ${label.levelQuestion}');
                       });
                     }
 
