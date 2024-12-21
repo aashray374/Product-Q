@@ -81,6 +81,7 @@ class SearchResults extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             onTap: () async {
+
               //await Future.delayed(const Duration(milliseconds: 1000));
               filteredOnTap[index]();
             },

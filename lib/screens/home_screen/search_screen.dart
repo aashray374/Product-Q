@@ -107,15 +107,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           'id': module.id.toString(),
                           'appId': module.appId.toString()
                         }.toString());
-                        // GoRouter.of(context)
-                        //     .pushNamed(MyAppRouteConst.coachModulesInfoRoute,
-                        //         pathParameters: {
-                        //           'moduleTitle': module.moduleName,
-                        //           'id': module.id.toString(),
-                        //           'appId': module.appId.toString()
-                        //         },
-                        //         extra: 0.0);
-                        GoRouter.of(context).pushReplacementNamed(MyAppRouteConst.coachModulesRoute);
+                        GoRouter.of(context).goNamed(MyAppRouteConst.coachModulesRoute, pathParameters: {'appId': module.appId.toString()});
                       });
                     }
                     for (Challenge challenge in result.challenges ?? []) {
@@ -123,14 +115,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add(challenge.moduleName);
                       type.add(MyConsts.chipsText[1]);
                       funcs.add(() {
-                        // GoRouter.of(context)
-                        //     .pushNamed(MyAppRouteConst.coachModulesInfoRoute,
-                        //         pathParameters: {
-                        //           'moduleTitle': challenge.moduleName,
-                        //           'id': challenge.module.toString(),
-                        //           'appId': challenge.appId.toString()
-                        //         },
-                        //         extra: 0.0);
+                        GoRouter.of(context).goNamed(MyAppRouteConst.coachModulesRoute, pathParameters: {'appId': challenge.appId.toString()});
                       });
                     }
 
@@ -139,15 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add(label.levelQuestion);
                       type.add(MyConsts.chipsText[2]);
                       funcs.add(() {
-                        // GoRouter.of(context).pushNamed(
-                        //     MyAppRouteConst.coachProblemRoute,
-                        //     pathParameters: {
-                        //       'problemTitle': label.labelName,
-                        //       'problemId': label.id.toString(),
-                        //       'appId': label.appId.toString()
-                        //     },
-                        //     extra:
-                        //         '${label.challengeName}.\n ${label.levelQuestion}');
+                        GoRouter.of(context).goNamed(MyAppRouteConst.coachModulesRoute, pathParameters: {'appId': label.appId.toString()});
                       });
                     }
 
@@ -157,8 +134,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       type.add(MyConsts.chipsText[3]);
                       funcs.add(() {
                         GoRouter.of(context)
-                            .pushNamed(MyAppRouteConst.worktoolsRoute,
-                                extra: category.id,
+                            .goNamed(MyAppRouteConst.worktoolsRoute,
                                 pathParameters: {'appId': category.appId.toString()});
                       });
                     }
@@ -168,11 +144,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add(skill.description);
                       type.add(MyConsts.chipsText[4]);
                       funcs.add(() {
-                        GoRouter.of(context).pushNamed(
-                            MyAppRouteConst.worktoolsDetailsRoute,
+                        GoRouter.of(context).goNamed(
+                            MyAppRouteConst.worktoolsRoute,
                             pathParameters: {
-                              'id': skill.categorie.toString(),
-                              'cardTitle': skill.name,
                               'appId': skill.appId.toString()
                             });
                       });
@@ -183,8 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add("Product IQ");
                       type.add(MyConsts.chipsText[5]);
                       funcs.add(() {
-                        GoRouter.of(context).pushNamed(MyAppRouteConst.iqRoute,
-                            extra: section.id,
+                        GoRouter.of(context).goNamed(MyAppRouteConst.iqRoute,
                             pathParameters: {'appId': section.appId.toString()});
                       });
                     }
@@ -195,10 +168,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       type.add(MyConsts.chipsText[6]);
                       funcs.add(() {
                         GoRouter.of(context).pushNamed(
-                            MyAppRouteConst.iqLearningsRoute,
+                            MyAppRouteConst.iqRoute,
                             pathParameters: {
-                              'index': topic.section.toString(),
-                              'title': topic.name,
                               'appId': topic.appId.toString()
                             });
                       });
@@ -210,13 +181,10 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add(lession.description);
                       type.add(MyConsts.chipsText[7]);
                       funcs.add(() {
-                        GoRouter.of(context).pushNamed(
-                            MyAppRouteConst.iqLearningsRoute,
+                        GoRouter.of(context).goNamed(
+                            MyAppRouteConst.iqRoute,
                             pathParameters: {
                               'appId': lession.appId.toString(),
-                              'index': lession.topic.toString(),
-                              'title': lession.topicName.toString()
-
                             });
                       });
                     }
