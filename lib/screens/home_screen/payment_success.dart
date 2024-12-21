@@ -70,7 +70,7 @@ class PaymentSuccessScreen extends StatelessWidget {
                       .copyWith(fontSize: 16),
                 ),
                 onTap: () {
-                  GoRouter.of(context).pop();
+                  GoRouter.of(context).pushReplacementNamed(MyAppRouteConst.appsRoute);
                 }),
           )
         ],
