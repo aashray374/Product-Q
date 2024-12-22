@@ -497,13 +497,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 // Display the list of recently visited items if available
                 return Column(
                   children: [
-                    for (var item in _recentlyVisited!)
+                    for (var item in _recentlyVisited)
                       Padding(
                         padding: const EdgeInsets.only(right: 20.0, top: 12),
                         child: GestureDetector(
                           onTap: () {
+                            debugPrint(item.toString());
                             debugPrint(item.coachPercent.toString());
                             if (item.appType == MyConsts.appTypes[0]) {
+                              debugPrint(item.toString());
                               GoRouter.of(context).pushNamed(
                                 item.appRoute,
                                 extra: item.coachPercent ?? 0.0,
@@ -516,6 +518,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 },
                               );
                             } else if (item.appType == MyConsts.appTypes[1]) {
+                              debugPrint(item.toString());
                               GoRouter.of(context).pushNamed(
                                 item.appRoute,
                                 pathParameters: {
@@ -525,12 +528,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 },
                               );
                             } else {
+                              debugPrint(item.toString());
                               GoRouter.of(context).pushNamed(
                                 item.appRoute,
                                 pathParameters: {
                                   'title': item.title,
-                                  'id': item.typeId.toString(),
-                                  'appId': item.appId.toString()
+                                  'appId': item.appId.toString(),
+                                  'index': item.typeId.toString()
                                 },
                               );
                             }
