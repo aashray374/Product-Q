@@ -292,7 +292,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   right: 0,
                   child: GestureDetector(
                     onTap: () {
-                      GoRouter.of(context).pop();
+                      GoRouter.of(context).pushReplacementNamed(MyAppRouteConst.appsRoute);
                     },
                     child: Text(
                       "SKIP",
