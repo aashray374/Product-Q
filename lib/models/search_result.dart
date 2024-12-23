@@ -139,14 +139,12 @@ class Category {
 
 class Section {
   final int id;
-  final int app;
   final bool active;
   final String name;
   final int appId;
 
   Section({
     required this.id,
-    required this.app,
     required this.active,
     required this.name,
     required this.appId,
@@ -154,7 +152,6 @@ class Section {
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
     id: json["id"],
-    app: json["app"],
     active: json["active"],
     name: json["name"],
     appId: json['app_id'],
@@ -162,7 +159,7 @@ class Section {
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "app": app,
+    "appId": appId,
     "active": active,
     "name": name
   };

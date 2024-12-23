@@ -94,9 +94,23 @@ class _SearchScreenState extends State<SearchScreen> {
                       headers: MyConsts.requestHeader);
                   final res = jsonDecode(response.body);
                   if (response.statusCode == 200) {
-                    debugPrint(res.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
                     final result = SearchResult.fromJson(res);
-
+                    // debugPrint(result.modules.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
+                    // debugPrint(result.lessions.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
+                    // debugPrint(result.categories.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
+                    // debugPrint(result.challenges.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
+                    // debugPrint(result.labels.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
+                    // debugPrint(result.sections.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
+                    // debugPrint(result.topics.toString());
+                    // debugPrint("-----------------------------------------------------------------------------------------------");
+                    // debugPrint(result.skills.toString());
                     for (Module module in result.modules ?? []) {
                       headings.add(module.moduleName);
                       subheadings.add(module.description);
@@ -153,6 +167,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     }
 
                     for (Section section in result.sections ?? []) {
+                      debugPrint("-----------------------------------------------------------------------------------------------");
+                      // debugPrint(result.lessions.toString());
                       headings.add(section.name);
                       subheadings.add("Product IQ");
                       type.add(MyConsts.chipsText[5]);
@@ -167,7 +183,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       subheadings.add(topic.sectionName);
                       type.add(MyConsts.chipsText[6]);
                       funcs.add(() {
-                        GoRouter.of(context).pushNamed(
+                        GoRouter.of(context).goNamed(
                             MyAppRouteConst.iqRoute,
                             pathParameters: {
                               'appId': topic.appId.toString()
